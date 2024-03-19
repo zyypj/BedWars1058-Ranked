@@ -7,10 +7,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="BedWars1058-Stats" />
-        <module name="Party" />
         <module name="HidePlayersItem" />
         <module name="BedWars1058-Ranked" />
-        <module name="BedWars1058-Commands" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -19,10 +17,12 @@
       <module name="bedwars-plugin" target="11" />
       <module name="BedWars1058" target="11" />
       <module name="BedWars1058-AntiDrop" target="1.8" />
+      <module name="BedWars1058-Commands" target="1.8" />
       <module name="BedWars1058-Compass" target="1.8" />
       <module name="BedWars1058-Ranked (1)" target="1.8" />
       <module name="BedWars1058-Stats" target="1.5" />
       <module name="HidePlayersItem" target="1.5" />
+      <module name="Party" target="1.5" />
       <module name="RankedBot" target="11" />
       <module name="resetadapter-aswm" target="11" />
       <module name="resetadapter-slime" target="11" />

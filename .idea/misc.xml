@@ -28,6 +28,7 @@
         <option value="$USER_HOME$/Downloads/BedWars1058-TeamSelector-master/pom.xml" />
         <option value="$USER_HOME$/Downloads/BedWars1058-master/bedwars-api/pom.xml" />
         <option value="$USER_HOME$/Downloads/BedWars1058-master/bedwars-plugin/pom.xml" />
+        <option value="$USER_HOME$/Downloads/BedWars1058-master/pom.xml" />
         <option value="$USER_HOME$/Downloads/BedWars1058-master/resetadapter_aswm/pom.xml" />
         <option value="$USER_HOME$/Downloads/BedWars1058-master/resetadapter_slime/pom.xml" />
         <option value="$USER_HOME$/Downloads/BedWars1058-master/resetadapter_slimepaper/pom.xml" />
@@ -46,7 +47,9 @@
         <option value="$USER_HOME$/Downloads/Bedwars-Cosmetics-production/pom.xml" />
         <option value="$USER_HOME$/Downloads/Bedwars1058-Compass-master/pom.xml" />
         <option value="$USER_HOME$/Downloads/RankedBot-master/pom.xml" />
+        <option value="$PROJECT_DIR$/../BedWars1058-Commands/pom.xml" />
         <option value="$PROJECT_DIR$/../BedWars1058-Ranked-Parties/pom.xml" />
+        <option value="$PROJECT_DIR$/../Party/pom.xml" />
       </set>
     </option>
   </component>
