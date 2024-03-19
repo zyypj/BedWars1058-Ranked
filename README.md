@@ -42,3 +42,4 @@ Suporte ao Party and Friends (https://www.spigotmc.org/resources/party-and-frien
 Suporte a clans.
 English translate.
 Mensagens personalizaveis.
+Menus.
