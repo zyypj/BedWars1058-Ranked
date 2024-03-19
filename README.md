@@ -12,6 +12,7 @@ Features:
 - Sistema de elo;
 - Sistema de rank;
 - Matchmaking equilibrado;
+- Join queue Menu;
 - Itens bloqueados antes do Bedbreaking;
 - Sistema de mvp;
 - SavePlayerData folder;
@@ -23,7 +24,7 @@ Comandos:
 - /rank <nick>
 - /lobby
 - /uuid <nick>
-- /joinqueue <Ranked1v1/Ranked4v4>
+- /joinqueue
 - /leavequeue 
 
 Placeholders:
@@ -42,4 +43,3 @@ Suporte ao Party and Friends (https://www.spigotmc.org/resources/party-and-frien
 Suporte a clans.
 English translate.
 Mensagens personalizaveis.
-Menus.
