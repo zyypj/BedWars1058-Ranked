@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../BedWars1058-Commands/BedWars1058-Commands.iml" filepath="$PROJECT_DIR$/../BedWars1058-Commands/BedWars1058-Commands.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/BedWars1058-Ranked.iml" filepath="$PROJECT_DIR$/.idea/BedWars1058-Ranked.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../BedWars1058-Stats/BedWars1058-Stats.iml" filepath="$PROJECT_DIR$/../BedWars1058-Stats/BedWars1058-Stats.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../HidePlayersItem/HidePlayersItem.iml" filepath="$PROJECT_DIR$/../HidePlayersItem/HidePlayersItem.iml" />
+    </modules>
+  </component>
+</project>

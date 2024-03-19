@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="BedWars1058-Stats" />
+        <module name="Party" />
+        <module name="HidePlayersItem" />
+        <module name="BedWars1058-Ranked" />
+        <module name="BedWars1058-Commands" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="bedwars-api" target="11" />
+      <module name="BedWars-Cosmetics" target="11" />
+      <module name="bedwars-plugin" target="11" />
+      <module name="BedWars1058" target="11" />
+      <module name="BedWars1058-AntiDrop" target="1.8" />
+      <module name="BedWars1058-Compass" target="1.8" />
+      <module name="BedWars1058-Ranked (1)" target="1.8" />
+      <module name="BedWars1058-Stats" target="1.5" />
+      <module name="HidePlayersItem" target="1.5" />
+      <module name="RankedBot" target="11" />
+      <module name="resetadapter-aswm" target="11" />
+      <module name="resetadapter-slime" target="11" />
+      <module name="resetadapter-slimepaper" target="11" />
+      <module name="team-selector" target="14" />
+      <module name="versionsupport-common" target="11" />
+      <module name="versionsupport_1_12_R1" target="11" />
+      <module name="versionsupport_1_8_R3" target="11" />
+      <module name="versionsupport_v1_16_R3" target="11" />
+      <module name="versionsupport_v1_17_R1" target="17" />
+      <module name="versionsupport_v1_18_R2" target="17" />
+      <module name="versionsupport_v1_19_R2" target="17" />
+      <module name="versionsupport_v1_19_R3" target="17" />
+      <module name="versionsupport_v1_20_R1" target="17" />
+      <module name="versionsupport_v1_20_R2" target="17" />
+      <module name="versionsupport_v1_20_R3" target="17" />
+      <module name="versionsupport_v1_20_R4" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

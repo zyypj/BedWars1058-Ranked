@@ -1,0 +1,20 @@
+name: BedWars1058-Ranked
+version: '2.5'
+main: com.tadeubw.bedwars1058ranked.Main
+softdepend: [BedWars1058,PlaceholderAPI]
+commands:
+  elo:
+    description: Mostra o seu elo atual
+    usage: /elo
+  uuid:
+    description: Mostra seu UUID
+    usage: /uuid
+  joinqueue:
+    description: Entre na fila de partidas ranqueadas
+    usage: /joinqueue
+  leavequeue:
+    description: Saia da fila de partidas ranqueadas
+    usage: /leavequeue
+  rank:
+    description: Veja seu rank ou de outra pessoa
+    usage: /rank
