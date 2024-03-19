@@ -40,3 +40,5 @@ Suporte ao Solo;
 Suporte ao Parties Plugin (https://www.spigotmc.org/resources/parties-an-advanced-parties-manager.3709/)
 Suporte ao Party and Friends (https://www.spigotmc.org/resources/party-and-friends-extended-for-spigot-supports-1-7-1-20-x.11633/)
 Suporte a clans.
+English translate.
+Mensagens personalizaveis.
