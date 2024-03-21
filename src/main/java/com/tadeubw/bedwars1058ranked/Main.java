@@ -1,5 +1,6 @@
 package com.tadeubw.bedwars1058ranked;
 
+import com.tadeubw.bedwars1058ranked.configuration.Messages;
 import com.tadeubw.bedwars1058ranked.elo.EloManager;
 import com.tadeubw.bedwars1058ranked.elo.EloPlaceholder;
 import com.tadeubw.bedwars1058ranked.elo.command.EloCommand;
@@ -14,7 +15,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -78,6 +78,7 @@ public final class Main extends JavaPlugin {
         getLogger().info("Nenhum erro encontrado :)");
         getLogger().info("Você está atualizado!");
         getLogger().info("-----------------------");
+        Messages.setupMessages();
     }
 
     @Override

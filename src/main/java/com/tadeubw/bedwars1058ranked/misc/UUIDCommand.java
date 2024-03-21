@@ -1,5 +1,6 @@
 package com.tadeubw.bedwars1058ranked.misc;
 
+import com.tadeubw.bedwars1058ranked.configuration.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -34,7 +35,7 @@ public class UUIDCommand implements CommandExecutor {
                 return true;
             }
         } else {
-            sender.sendMessage("§cComando não encontrado ou você não tem permissão");
+            sender.sendMessage(Messages.CMD_NOT_FOUND);
             return true;
         }
         return false;

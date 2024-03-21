@@ -1,5 +1,6 @@
 package com.tadeubw.bedwars1058ranked.misc;
 
+import com.tadeubw.bedwars1058ranked.configuration.Messages;
 import com.tadeubw.bedwars1058ranked.elo.EloManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -32,7 +33,7 @@ public class RankCommand implements CommandExecutor {
             Player target = Bukkit.getPlayer(args[0]);
             int elo = eloManager.getPlayerEloGeral(target);
             if (target == null) {
-                sender.sendMessage("§cJogador não encontrado ou offline.");
+                sender.sendMessage(Messages.PLAYER_NOT_FOUND);
                 player.playSound(player.getLocation(), Sound.NOTE_BASS, 1, 1);
                 return true;
             }

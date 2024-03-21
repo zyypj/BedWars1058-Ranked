@@ -1,10 +1,11 @@
+com\tadeubw\bedwars1058ranked\misc\UUIDCommand.class
+com\tadeubw\bedwars1058ranked\elo\command\EloCommand.class
+com\tadeubw\bedwars1058ranked\configuration\Messages.class
+com\tadeubw\bedwars1058ranked\queue\QueueManager.class
 com\tadeubw\bedwars1058ranked\Main.class
 com\tadeubw\bedwars1058ranked\queue\command\LeaveQueueCommand.class
 com\tadeubw\bedwars1058ranked\elo\EloPlaceholder.class
-com\tadeubw\bedwars1058ranked\misc\UUIDCommand.class
-com\tadeubw\bedwars1058ranked\elo\command\EloCommand.class
 com\tadeubw\bedwars1058ranked\queue\command\JoinQueueCommand.class
 com\tadeubw\bedwars1058ranked\misc\RankCommand.class
-com\tadeubw\bedwars1058ranked\queue\QueueManager.class
 com\tadeubw\bedwars1058ranked\elo\EloManager.class
 com\tadeubw\bedwars1058ranked\mvpSystem\MVPManager.class

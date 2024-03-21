@@ -178,6 +178,7 @@ public class QueueManager implements Listener {
         loreS.add("§7§lSolo Ranked");
         loreS.add("");
         loreS.add("§7Elo RankedSolo: §d" + eloManager.getPlayerEloSolo(player));
+        lore.add("");
         loreS.add("§7" + getQueueSize("RankedSolo") + "jogadores na fila");
         loreS.add("§eClique para entrar na fila");
         RankedSMeta.setLore(loreS);
