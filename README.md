@@ -19,8 +19,8 @@ Features:
 - Placeholders.
 
 Comandos:
-- /elo <nick> <1v1/4v4/geral>
-- /elo add <nick> <1v1/4v4> <número> - bwranked.admin
+- /elo <nick> <Solo/1v1/4v4/geral>
+- /elo add <nick> <Solo/1v1/4v4> <número> - bwranked.admin
 - /rank <nick>
 - /lobby
 - /uuid <nick>
@@ -28,16 +28,17 @@ Comandos:
 - /leavequeue 
 
 Placeholders:
+- %bw1058ranked_rankedSolo_inqueue% - Jogadores na fila Ranked1v1
 - %bw1058ranked_ranked1v1_inqueue% - Jogadores na fila Ranked1v1
 - %bw1058ranked_ranked4v4_inqueue% - Jogadores na fila Ranked4v4
+- %bw1058ranked_rankedSolo% - Elo rankedSolo do jogador
 - %bw1058ranked_ranked1v1% - Elo ranked1v1 do jogador
 - %bw1058ranked_ranked4v4% - Elo ranked4v4 do jogador
-- %bw1058ranked_geral% - Elo geral (elo1v1 + elo4v4 = eloSoma / 2)
+- %bw1058ranked_geral% - Elo geral ([eloSolo +elo1v1 + elo4v4] / 3)
 - %bw1058ranked_rank% - Rank do jogador
 - %bw1058ranked_mvp_count% - Vezes mvp do jogador
 
 Próximas ideias:
-Suporte ao Solo;
 Suporte ao Parties Plugin (https://www.spigotmc.org/resources/parties-an-advanced-parties-manager.3709/)
 Suporte ao Party and Friends (https://www.spigotmc.org/resources/party-and-friends-extended-for-spigot-supports-1-7-1-20-x.11633/)
 Suporte a clans.
