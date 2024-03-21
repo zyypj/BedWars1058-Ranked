@@ -37,10 +37,14 @@ public class EloPlaceholder extends PlaceholderExpansion {
     public String onPlaceholderRequest(Player player, @NotNull String s) {
         if (player == null) return null;
         switch (s) {
+            case "rankedSolo_inqueue":
+                return String.valueOf(queueManager.getQueueSize("RankedSolo"));
             case "ranked1v1_inqueue":
                 return String.valueOf(queueManager.getQueueSize("Ranked1v1"));
             case "ranked4v4_inqueue":
                 return String.valueOf(queueManager.getQueueSize("Ranked4v4"));
+            case "rankedSolo":
+                return String.valueOf(eloManager.getPlayerEloSolo(player));
             case "ranked1v1":
                 return String.valueOf(eloManager.getPlayerElo1v1(player));
             case "ranked4v4":

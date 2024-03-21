@@ -1,5 +1,5 @@
 name: BedWars1058-Ranked
-version: '2.5'
+version: '2.7'
 main: com.tadeubw.bedwars1058ranked.Main
 softdepend: [BedWars1058,PlaceholderAPI]
 commands:

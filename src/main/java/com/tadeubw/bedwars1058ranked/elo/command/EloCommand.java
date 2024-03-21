@@ -29,8 +29,8 @@ public class EloCommand implements CommandExecutor {
 
         // /elo - elo geral
         if (args.length == 0) {
-            int eloSoma = eloManager.getElo(playerUUID, "ranked1v1") + eloManager.getElo(playerUUID, "ranked4v4");
-            int eloGeral = eloSoma / 2;
+            int eloSoma = eloManager.getElo(playerUUID, "ranked1v1") + eloManager.getElo(playerUUID, "ranked4v4") + eloManager.getElo(playerUUID, "rankedSolo");
+            int eloGeral = eloSoma / 3;
             player.sendMessage("§7Seu Ranked Elo Geral é: §d" + eloGeral);
             player.playSound(player.getLocation(), Sound.LEVEL_UP, 1, 1);
             return true;
@@ -38,9 +38,13 @@ public class EloCommand implements CommandExecutor {
         // /elo 1v1
         if (args.length == 1) {
             String tipo = args[0];
-            int eloSoma = eloManager.getElo(playerUUID, "ranked1v1") + eloManager.getElo(playerUUID, "ranked4v4");
-            int eloGeral = eloSoma / 2;
+            int eloSoma = eloManager.getElo(playerUUID, "ranked1v1") + eloManager.getElo(playerUUID, "ranked4v4") + eloManager.getElo(playerUUID, "rankedSolo");
+            int eloGeral = eloSoma / 3;
             switch (tipo.toLowerCase()) {
+                case "solo":
+                    sender.sendMessage("§7Seu Ranked Elo Solo é: §d" + eloManager.getElo(playerUUID, "rankedSolo"));
+                    player.playSound(player.getLocation(), Sound.LEVEL_UP, 1, 1);
+                    return true;
                 case "1v1":
                     sender.sendMessage("§7Seu Ranked Elo 1v1 é: §d" + eloManager.getElo(playerUUID, "ranked1v1"));
                     player.playSound(player.getLocation(), Sound.LEVEL_UP, 1, 1);
@@ -54,7 +58,7 @@ public class EloCommand implements CommandExecutor {
                     player.playSound(player.getLocation(), Sound.LEVEL_UP, 1, 1);
                     return true;
                 default:
-                    sender.sendMessage("§cTipo de partida inválido. Use '1v1', '4v4' ou 'Geral'.");
+                    sender.sendMessage("§cTipo de partida inválido. Use 'Solo', '1v1', '4v4' ou 'Geral'.");
                     player.playSound(player.getLocation(), Sound.NOTE_BASS, 1, 1);
                     return true;
             }
@@ -69,9 +73,13 @@ public class EloCommand implements CommandExecutor {
                 return true;
             }
             UUID targetUUID = target.getUniqueId();
-            int eloSoma = eloManager.getElo(targetUUID, "ranked1v1") + eloManager.getElo(targetUUID, "ranked4v4");
-            int eloGeral = eloSoma / 2;
+            int eloSoma = eloManager.getElo(targetUUID, "ranked1v1") + eloManager.getElo(targetUUID, "ranked4v4") + eloManager.getElo(targetUUID, "rankedSolo");
+            int eloGeral = eloSoma / 3;
             switch (tipo.toLowerCase()) {
+                case "solo":
+                    sender.sendMessage("§7O Ranked Elo Solo de §7§" + target.getName() + " §7é: §d" + eloManager.getElo(targetUUID, ".rankedSolo"));
+                    player.playSound(player.getLocation(), Sound.LEVEL_UP, 1, 1);
+                    return true;
                 case "1v1":
                     sender.sendMessage("§7O Ranked Elo 1v1 de §7§l" + target.getName() + " §7é: §d" + eloManager.getElo(targetUUID, "ranked1v1") + "§7.");
                     player.playSound(player.getLocation(), Sound.LEVEL_UP, 1, 1);
@@ -85,7 +93,7 @@ public class EloCommand implements CommandExecutor {
                     player.playSound(player.getLocation(), Sound.LEVEL_UP, 1, 1);
                     return true;
                 default:
-                    sender.sendMessage("§cTipo de partida inválido. Use '1v1', '4v4' ou 'Geral'.");
+                    sender.sendMessage("§cTipo de partida inválido. Use 'Solo', '1v1', '4v4' ou 'Geral'.");
                     player.playSound(player.getLocation(), Sound.LEVEL_UP, 1, 1);
                     return true;
             }
@@ -111,6 +119,12 @@ public class EloCommand implements CommandExecutor {
                     return true;
                 }
                 switch (tipo.toLowerCase()) {
+                    case "solo":
+                        eloManager.setEloSolo(targetUUID, newElo);
+                        sender.sendMessage("§7O novo Ranked Elo do Solo de §l" + target.getName() + " §7foi definido para §d" + newElo);
+                        target.sendMessage("§7Seu Ranked Elo do Solo foi definido para §d" + newElo + " §7por §7§l" + sender.getName());
+                        target.playSound(target.getLocation(), Sound.LEVEL_UP, 1, 1);
+                        return true;
                     case "1v1":
                         eloManager.setElo1v1(targetUUID, newElo);
                         sender.sendMessage("§7O novo Ranked Elo do 1v1 de §7§l" + target.getName() + " §7foi definido para §d" + newElo);
@@ -130,7 +144,7 @@ public class EloCommand implements CommandExecutor {
                         target.playSound(target.getLocation(), Sound.LEVEL_UP, 1, 1);
                         return true;
                     default:
-                        sender.sendMessage("§cTipo de partida inválido. Use '1v1', '4v4' ou 'Geral'.");
+                        sender.sendMessage("§cTipo de partida inválido. Use 'Solo', '1v1', '4v4' ou 'Geral'.");
                         player.playSound(player.getLocation(), Sound.NOTE_BASS, 1, 1);
                         return true;
 

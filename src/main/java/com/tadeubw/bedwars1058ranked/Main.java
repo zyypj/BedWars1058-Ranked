@@ -14,6 +14,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -72,7 +73,7 @@ public final class Main extends JavaPlugin {
         getLogger().info("");
         getLogger().info("BedWars1058 Ranked");
         getLogger().info("by tadeu");
-        getLogger().info("2.5.0");
+        getLogger().info(getDescription().getVersion());
         getLogger().info("");
         getLogger().info("Nenhum erro encontrado :)");
         getLogger().info("Você está atualizado!");

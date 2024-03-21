@@ -61,6 +61,30 @@ public class QueueManager implements Listener {
                 player.playSound(player.getLocation(), Sound.NOTE_BASS, 1, 1);
                 return;
             }
+            if (e.getCurrentItem().getType() == Material.NETHER_STAR) {
+                UUID playerUUID = player.getUniqueId();
+                if (bedwarsAPI.getPartyUtil().hasParty(player)) {
+                    player.sendMessage("§cVocê não pode entrar em uma fila ranqueada em party!");
+                    player.closeInventory();
+                    player.playSound(player.getLocation(), Sound.NOTE_BASS, 1, 1);
+                    return;
+                }
+                if (bedwarsAPI.getStatsUtil().getPlayerWins(playerUUID) >= 100 || player.hasPermission("bw.vip")) {
+                    if (bedwarsAPI.getArenaUtil().isPlaying(player)) {
+                        player.sendMessage("§cVocê já está jogando!");
+                        player.closeInventory();
+                        player.playSound(player.getLocation(), Sound.NOTE_BASS, 1, 1);
+                        return;
+                    }
+                    joinQueue(player, "RankedSolo");
+                    player.closeInventory();
+                    return;
+                }
+                player.sendMessage("§cPara entrar numa fila ranqueada você precisa de\n§c§l+100 WINS §cou comprar §e§lVIP§c.");
+                player.closeInventory();
+                player.playSound(player.getLocation(), Sound.NOTE_BASS, 1, 1);
+                return;
+            }
             if (e.getCurrentItem().getType() == Material.BED && e.getCurrentItem().getAmount() == 4) {
                 if (!(bedwarsAPI.getPartyUtil().hasParty(player))) {
                     player.sendMessage("§cVocê precisa estar em uma party para entrar nessa fila!");
@@ -116,32 +140,65 @@ public class QueueManager implements Listener {
     }
 
     public void openJoinMenu(Player player) {
-        Inventory testMenu = Bukkit.createInventory(player, 27, "§7Entrar em uma Fila");
+        Inventory testMenu = Bukkit.createInventory(player, 36, "§7Entrar em uma Fila");
+
+        ItemStack infoItem = new ItemStack(Material.PAPER);
+        ItemMeta infoMeta = infoItem.getItemMeta();
+        infoMeta.setDisplayName("§aInformações Pessoais");
+        List<String> loreinfo = new ArrayList<>();
+        loreinfo.add("§7Veja suas informações");
+        loreinfo.add("§7pessoais.");
+        loreinfo.add("");
+        loreinfo.add("§7Seu Rank: " + eloManager.getRank(eloManager.getPlayerEloGeral(player)));
+        loreinfo.add("§7Seu Elo: §d" + eloManager.getPlayerEloGeral(player));
+        infoMeta.setLore(loreinfo);
+        infoItem.setItemMeta(infoMeta);
+        testMenu.setItem(4, infoItem);
 
         ItemStack Ranked1Item = new ItemStack(Material.BED);
         ItemMeta Ranked1Meta = Ranked1Item.getItemMeta();
-        Ranked1Meta.setDisplayName("§aRanked 1v1");
+        Ranked1Meta.setDisplayName("§a1v1 Ranked");
         List<String> lore = new ArrayList<>();
         lore.add("§7Entrar na fila para");
-        lore.add("§7§lRanked1v1");
+        lore.add("§7§l1v1 Ranked");
         lore.add("");
+        lore.add("§7Elo Ranked1v1:" + eloManager.getPlayerElo1v1(player));
+        lore.add("");
+        lore.add("§7" + getQueueSize("Ranked1v1") + " jogadores na fila");
         lore.add("§eClique para entrar na fila");
         Ranked1Meta.setLore(lore);
         Ranked1Item.setItemMeta(Ranked1Meta);
-        testMenu.setItem(12, Ranked1Item);
+        testMenu.setItem(21, Ranked1Item);
+
+        ItemStack RankedSItem = new ItemStack(Material.NETHER_STAR);
+        ItemMeta RankedSMeta = RankedSItem.getItemMeta();
+        RankedSMeta.setDisplayName("§aSolo Ranked");
+        List<String> loreS = new ArrayList<>();
+        loreS.add("§7Entrar na fila para");
+        loreS.add("§7§lSolo Ranked");
+        loreS.add("");
+        loreS.add("§7Elo RankedSolo: §d" + eloManager.getPlayerEloSolo(player));
+        loreS.add("§7" + getQueueSize("RankedSolo") + "jogadores na fila");
+        loreS.add("§eClique para entrar na fila");
+        RankedSMeta.setLore(loreS);
+        RankedSItem.setItemMeta(RankedSMeta);
+        testMenu.setItem(22, RankedSItem);
 
         ItemStack Ranked4Item = new ItemStack(Material.BED);
         ItemMeta Ranked4Meta = Ranked4Item.getItemMeta();
-        Ranked4Meta.setDisplayName("§aRanked 4v4");
+        Ranked4Meta.setDisplayName("§a4v4 Ranked");
         List<String> lore4 = new ArrayList<>();
         lore4.add("§7Entrar na fila para");
-        lore4.add("§7§lRanked4v4");
+        lore4.add("§7§l4v4 Ranked");
         lore4.add("");
+        lore4.add("§7Elo Ranked4v4: §d" + eloManager.getPlayerElo4v4(player));
+        lore4.add("");
+        lore4.add("§7" + getQueueSize("Ranked4v4") + " jogadores na fila");
         lore4.add("§eClique para entrar na fila");
         Ranked4Meta.setLore(lore4);
         Ranked4Item.setItemMeta(Ranked4Meta);
         Ranked4Item.setAmount(4);
-        testMenu.setItem(14, Ranked4Item);
+        testMenu.setItem(23, Ranked4Item);
 
         player.openInventory(testMenu);
     }
@@ -152,7 +209,7 @@ public class QueueManager implements Listener {
             player.playSound(player.getLocation(), Sound.NOTE_BASS, 1, 1);
             return;
         }
-        if (isInQueue(player, gameType)) {
+        if (isInQueue(player, "RankedSolo") || isInQueue(player, "Ranked1v1") || isInQueue(player, "Ranked4v4")) {
             player.sendMessage("");
             player.sendMessage("§cVocê já está em uma fila!");
             player.sendMessage("§cUse /leavequeue.");
@@ -204,7 +261,7 @@ public class QueueManager implements Listener {
     }
 
     public void checkQueue(String gameType) {
-        if (gameType.equalsIgnoreCase("Ranked1v1") || gameType.equalsIgnoreCase("Ranked4v4")) {
+        if (gameType.equalsIgnoreCase("RankedSolo") || gameType.equalsIgnoreCase("Ranked1v1") || gameType.equalsIgnoreCase("Ranked4v4")) {
             List<Player> queue = gameQueue.get(gameType);
             if (queue != null && queue.size() >= 2) {
                 Player player1 = queue.get(0);

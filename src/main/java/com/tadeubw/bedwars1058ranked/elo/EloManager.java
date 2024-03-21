@@ -68,12 +68,16 @@ public class EloManager implements Listener {
             for (String uuidString : playerData.getKeys(false)) {
 
                 // Define o elo inicial como 1000 em todos os modos
+                int eloSolo = 1000;
                 int elo1v1 = 1000;
                 int elo4v4 = 1000;
-                int eloGeral = 1000;
+                int eloGeral = (eloSolo + elo1v1 + elo4v4) / 3;
                 int mvpCount = 0;
 
                 // Se o jogador já tiver um elo registrado, mantém o elo atual
+                if (playerData.contains(uuidString + ".rankedsolo")) {
+                    eloSolo = playerData.getInt(uuidString + ".rankedsolo");
+                }
                 if (playerData.contains(uuidString + ".ranked1v1")) {
                     elo1v1 = playerData.getInt(uuidString + ".ranked1v1");
                 }
@@ -88,6 +92,7 @@ public class EloManager implements Listener {
                 }
 
                 config.set(uuidString + ".geral", eloGeral);
+                config.set(uuidString + ".rankedsolo", eloSolo);
                 config.set(uuidString + ".ranked1v1", elo1v1);
                 config.set(uuidString + ".ranked4v4", elo4v4);
                 config.set(uuidString + ".mvp", mvpCount);
@@ -146,6 +151,10 @@ public class EloManager implements Listener {
     public void addElo(UUID uuid, int elo, String tipoPartida) {
         int currentElo;
         switch (tipoPartida.toLowerCase()) {
+            case "rankedsolo":
+                currentElo = playerData.getInt(uuid.toString() + ".rankedsolo", 1000);
+                playerData.set(uuid.toString() + ".rankedsolo", currentElo + elo);
+                break;
             case "ranked1v1":
                 currentElo = playerData.getInt(uuid.toString() + ".ranked1v1", 1000); // Default elo is 1000
                 playerData.set(uuid.toString() + ".ranked1v1", currentElo + elo);
@@ -155,9 +164,10 @@ public class EloManager implements Listener {
                 playerData.set(uuid.toString() + ".ranked4v4", currentElo + elo);
                 break;
             case "geral":
+                int eloSolo = playerData.getInt(uuid.toString() + ".rankedsolo", 1000);
                 int elo1v1 = playerData.getInt(uuid.toString() + ".ranked1v1", 1000);
                 int elo4v4 = playerData.getInt(uuid.toString() + ".ranked4v4", 1000);
-                int eloGeral = (elo1v1 + elo4v4) / 2;
+                int eloGeral = (eloSolo + elo1v1 + elo4v4) / 3;
                 playerData.set(uuid.toString() + ".geral", eloGeral + elo);
                 break;
             default:
@@ -166,6 +176,9 @@ public class EloManager implements Listener {
         savePlayerData();
     }
 
+    public int getPlayerEloSolo(Player player) {
+        return playerData.getInt(player.getUniqueId().toString() + ".rankedsolo");
+    }
     public int getPlayerElo1v1(Player player) {
         return playerData.getInt(player.getUniqueId().toString() + ".ranked1v1");
     }
@@ -175,9 +188,15 @@ public class EloManager implements Listener {
     }
 
     public int getPlayerEloGeral(Player player) {
+        int eloSolo = getPlayerEloSolo(player);
         int elo1v1 = getPlayerElo1v1(player);
         int elo4v4 = getPlayerElo4v4(player);
-        return (elo1v1 + elo4v4) / 2;
+        return (eloSolo + elo1v1 + elo4v4) / 3;
+    }
+    
+    public void setEloSolo(UUID uuid, int elo) {
+        playerData.set(uuid.toString() + ".rankedsolo", elo);
+        savePlayerData();
     }
 
     public void setElo1v1(UUID uuid, int elo) {
@@ -204,6 +223,8 @@ public class EloManager implements Listener {
             winstreakPlaceholder = "%groupstats_Ranked1v1_winstreak%";
         } else if (tipoPartida.equals("Ranked4v4")) {
             winstreakPlaceholder = "%groupstats_Ranked4v4_winstreak%";
+        } else if (tipoPartida.equals("RankedSolo")) {
+            winstreakPlaceholder = "%groupstats_RankedSolo_winstreak%";
         }
         return Integer.parseInt(PlaceholderAPI.setPlaceholders(player, winstreakPlaceholder));
     }
@@ -227,7 +248,7 @@ public class EloManager implements Listener {
         UUID playerUUID = player.getUniqueId();
         if (bedwarsAPI.getArenaUtil().isPlaying(player)) {
             String group = e.getArena().getGroup();
-            if (group.equalsIgnoreCase("Ranked1v1") || group.equalsIgnoreCase("Ranked4v4")) {
+            if (group.equalsIgnoreCase("RankedSolo") || group.equalsIgnoreCase("Ranked1v1") || group.equalsIgnoreCase("Ranked4v4")) {
                 Random random = new Random();
                 int playerEloIncrease = random.nextInt(13) + 4; // Gera um número aleatório de 4 a 16
                 addElo(playerUUID, playerEloIncrease, group.toLowerCase());
@@ -253,7 +274,7 @@ public class EloManager implements Listener {
             String group = e.getArena().getGroup();
             Player victim = e.getVictim();
             UUID victimUUID = victim.getUniqueId();
-            if (group.equalsIgnoreCase("Ranked1v1") || group.equalsIgnoreCase("Ranked4v4")) {
+            if (group.equalsIgnoreCase("RankedSolo") || group.equalsIgnoreCase("Ranked1v1") || group.equalsIgnoreCase("Ranked4v4")) {
                 if (e.getCause().isFinalKill()) {
                     Random random = new Random();
                     int killerEloIncrease = random.nextInt(8) + 1; // Gera um número aleatório de 1 a 8
@@ -279,7 +300,7 @@ public class EloManager implements Listener {
         String group = e.getArena().getGroup();
         ITeam winnerTeam = e.getTeamWinner();
         List<UUID> loserUUIDs = e.getLosers();
-        if (group.equalsIgnoreCase("Ranked1v1") || group.equalsIgnoreCase("Ranked4v4")) {
+        if (group.equalsIgnoreCase("RankedSolo") || group.equalsIgnoreCase("Ranked1v1") || group.equalsIgnoreCase("Ranked4v4")) {
             String tipoPartida = group.equalsIgnoreCase("Ranked1v1") ? "Ranked1v1" : "Ranked4v4";
             for (Player winner : winnerTeam.getMembers()) {
                 checkWinstreak(winner, tipoPartida);
@@ -320,7 +341,7 @@ public class EloManager implements Listener {
         ICategoryContent categoryContent = e.getCategoryContent();
         String identifier = categoryContent.getIdentifier();
         // Permanently blocked items
-        if (group.equalsIgnoreCase("Ranked1v1") || group.equalsIgnoreCase("Ranked4v4")) {
+        if (group.equalsIgnoreCase("RankedSolo") || group.equalsIgnoreCase("Ranked1v1") || group.equalsIgnoreCase("Ranked4v4")) {
             if (identifier.equals("utility-category.category-content.fireball") ||
                     identifier.equals("ranged-category.category-content.bow1") ||
                     identifier.equals("ranged-category.category-content.bow2") ||
@@ -335,7 +356,7 @@ public class EloManager implements Listener {
             }
         }
         // Temporarily blocked items
-        if (group.equalsIgnoreCase("Ranked1v1") || group.equalsIgnoreCase("Ranked4v4")) {
+        if (group.equalsIgnoreCase("RankedSolo") || group.equalsIgnoreCase("Ranked1v1") || group.equalsIgnoreCase("Ranked4v4")) {
             if (!(teamA.isBedDestroyed() || teamB.isBedDestroyed())) {
                 if (identifier.equals("potions-category.category-content.invisibility") ||
                         identifier.equals("utility-category.category-content.tnt") ||
